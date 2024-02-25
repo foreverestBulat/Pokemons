@@ -3,9 +3,7 @@ import Card from './card'
 import axios from "axios"
 
 const Cards = (props) => {
-    const [url, setUrl]= useState("https://pokeapi.co/api/v2/pokemon?limit=100");
-    const [nextUrl, setNextUrl] = useState();
-    const [prevUrl, setPrevUrl] = useState();
+    // const [url, setUrl]= useState("https://pokeapi.co/api/v2/pokemon?limit=10");
     const [pokemons, setPokemons] = useState();
 
     useEffect(() => {
@@ -14,16 +12,23 @@ const Cards = (props) => {
 
     const loadingData = async() => {
         console.log(props);
-        const res = await axios.get(url);
-        setNextUrl(res.data.next);
-        setPrevUrl(res.data.previous);
-        const pokeDatas = []
-        for (let i = 0; i < res.data.results.length; i++){
-            const pokeData = await axios.get(res.data.results[i].url);
-            pokeDatas.push(pokeData);
-        }
-        setPokemons(pokeDatas);
-        console.log(pokemons)
+        console.log(123);
+
+        // const pokeDatas = []
+        // for (let i = 0; Array.isArray(props.pokemons) && i < props.pokemons.length; i++){
+        //     const pokeData = await axios.get(props.pokemons[i].url);
+        //     pokeDatas.push(pokeData)
+        // }
+        // setPokemons(pokeDatas)
+
+        // const res = await axios.get(url);
+        // const pokeDatas = []
+        // for (let i = 0; i < res.data.results.length; i++){
+        //     const pokeData = await axios.get(res.data.results[i].url);
+        //     pokeDatas.push(pokeData);
+        // }
+        // setPokemons(pokeDatas);
+        
     }
 
     return (

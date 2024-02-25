@@ -1,11 +1,9 @@
 import React from "react";
 
-const MyInput = (props) => {
+const MyInput = React.forwardRef((props, ref) => {
     return (
-        <input {...props}/>
-
-        
+        <input {...props}/>   
     )
-}
+});
 
 export default MyInput;

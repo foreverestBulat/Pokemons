@@ -1,7 +1,6 @@
-import React, {useMemo, useState} from "react";
 import MyInput from './UI/input/MyInput'
 
-const SearchEngine = (filter, setFilter) => {
+const SearchEngine = (props) => {
     return (
         <div class="search">
             <link rel="stylesheet" href="static/css/search.css"/>
@@ -13,12 +12,12 @@ const SearchEngine = (filter, setFilter) => {
                     <form>
                         <div class="form">
                             <MyInput
-                                value={filter.query}
-                                onChange={e => setFilter({...filter, query: e.target.value})}
-                                placeholder="pokemon search..."
-                            />
+                                {...props}/>
                             <div class="vertical-btn">
-                                <button class="button">
+                                <button
+                                    class="button"
+                                    // onClick={props.startSearch}
+                                    >
                                 GO
                                 </button>
                             </div>
