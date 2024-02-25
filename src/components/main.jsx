@@ -7,18 +7,19 @@ import Card from './card'
 
 function Main() {
   const [url, setUrl]= useState("https://pokeapi.co/api/v2/pokemon?offset=0&limit=30");
+  const [nextUrl, setNextUrl] = useState('');
+  const [prevUrl, setPrevUrl] = useState('');
   const [pokemons, setPokemons] = useState([]);
-
-  // const [searchedPokemons, setSearchedPokemons] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-      loadingData();
-  }, []);
+      loadingData(url);
+  }, [url]);
 
-  const loadingData = async() => {
+  const loadingData = async(url) => {
     const res = await axios.get(url);
-
+    setPrevUrl(res.data.previous);
+    setNextUrl(res.data.next);
     if (Array.isArray(res.data.results)){
       let pokeDatas = []
       for (let i = 0; i < res.data.results.length; i++){
@@ -29,13 +30,9 @@ function Main() {
     }
   }
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // console.log(searchQuery)
-
         const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1302")
         const pokemonsAll = response.data.results;
         if (Array.isArray(pokemonsAll)){
@@ -59,61 +56,43 @@ function Main() {
   }, [searchQuery]);
 
 
+  const prevOnClick = async() => {
+    if (prevUrl){
+      setUrl(prevUrl);
+    }
+  }
+
+  const nextOnClick = async() => {
+    if (nextUrl){
+      setUrl(nextUrl);
+    }
+  }
 
   return (
     <div className="App">
       <link rel="stylesheet" href="static/css/cards.css"/>
       <link rel="stylesheet" href="static/css/card.css"/>
 
-      <div class="search">
-            <link rel="stylesheet" href="static/css/search.css"/>
-            <div class="horizontal">
-                <div class="vertical">
-                    <div class="block-text">
-                        <div class="text">Who are you looking for?</div>
-                    </div>
-                    <form>
-                        <div class="form">
-                            <MyInput
-                              value={searchQuery}
-                              placeholder="Pokemon search..."
-                              onChange={e => setSearchQuery(e.target.value)}
-                            />
-                            <div class="vertical-btn">
-                                <button class="button">
-                                GO
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+      <SearchEngine
+        value={searchQuery}
+        placeholder="Pokemon search..."
+        onChange={e => setSearchQuery(e.target.value)}
+      />
+      <Cards
+        pokemons={pokemons}
+      />
 
-      {/* <Cards/> */}
-
-      <div class="cards">
-            {Array.isArray(pokemons) && pokemons.length !== 0
-                ? pokemons.map(pokemon => 
-                    <Card pokemon={pokemon}/>
-                )
-                :<div class="no-pokemons">
-                    <div><h1>Oops! Try again.</h1></div>
-                    <div class="message">The pokemon you're looking for is a unicorn. It doesn't exist in this list</div>
-                    <div><img src="https://i.pinimg.com/originals/35/19/21/3519217837a15cb807890d874ad65400.gif"/></div>
-                </div>
-            }
-        </div>
+      <div class="pagination">
+        <button class="prev" onClick={prevOnClick}>
+          PREVIOUS
+        </button>
+        <button class="next" onClick={nextOnClick}>
+          NEXT
+        </button>
+      </div>
 
     </div>
   );
 }
 
 export default Main;
-
-
-{/* <SearchEngine
-value={searchQuery}
-onChange={e => setSearchQuery(e.target.value)}
-placeholder="pokemon search..."
-/> */}

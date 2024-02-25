@@ -10,8 +10,15 @@ const Card = (props) => {
             </div>
             <img src={props.pokemon.sprites.front_default}/>
             <div class="down">
-                <button>Grass</button>
-                <button>Poison</button>
+                {Array.isArray(props.pokemon.types)
+                    ? props.pokemon.types.map(item => 
+                        <div><p>{item.type.name}</p></div>
+                    )
+                    :<div>Abilities not found</div>
+                }
+
+                {/* <button>Grass</button>
+                <button>Poison</button> */}
             </div>
         </div>
     )

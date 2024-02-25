@@ -3,38 +3,10 @@ import Card from './card'
 import axios from "axios"
 
 const Cards = (props) => {
-    // const [url, setUrl]= useState("https://pokeapi.co/api/v2/pokemon?limit=10");
-    const [pokemons, setPokemons] = useState();
-
-    useEffect(() => {
-        loadingData();
-    }, []);
-
-    const loadingData = async() => {
-        console.log(props);
-        console.log(123);
-
-        // const pokeDatas = []
-        // for (let i = 0; Array.isArray(props.pokemons) && i < props.pokemons.length; i++){
-        //     const pokeData = await axios.get(props.pokemons[i].url);
-        //     pokeDatas.push(pokeData)
-        // }
-        // setPokemons(pokeDatas)
-
-        // const res = await axios.get(url);
-        // const pokeDatas = []
-        // for (let i = 0; i < res.data.results.length; i++){
-        //     const pokeData = await axios.get(res.data.results[i].url);
-        //     pokeDatas.push(pokeData);
-        // }
-        // setPokemons(pokeDatas);
-        
-    }
-
     return (
         <div class="cards">
-            {Array.isArray(pokemons) && pokemons.length !== 0
-                ? pokemons.map(pokemon => 
+            {Array.isArray(props.pokemons) && props.pokemons.length !== 0
+                ? props.pokemons.map(pokemon => 
                     <Card pokemon={pokemon}/>
                 )
                 :<div class="no-pokemons">

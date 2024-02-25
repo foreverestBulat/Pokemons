@@ -30,7 +30,16 @@
     width: 120px;
 }
 
-.card button {
+.card .down {
+    display: flex;
+    flex-direction: row;
+}
+
+.card .down div {
+    background-color: rgb(220, 220, 220);
+    align-items: center;
+    display: flex;
+    justify-content: center;
     font-family: "Quicksand", sans-serif;
     width: 100px;
     height: 30px;
