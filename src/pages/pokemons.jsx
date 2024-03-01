@@ -8,6 +8,7 @@ function Pokemons() {
     <div className="App">
       <link rel="stylesheet" href="static/css/cards.css"/>
       <link rel="stylesheet" href="static/css/card.css"/>
+      
       <Main/>
     </div>
   );

@@ -36,7 +36,7 @@
 }
 
 .card .down div {
-    background-color: rgb(220, 220, 220);
+    /* background-color: rgb(220, 220, 220); */
     align-items: center;
     display: flex;
     justify-content: center;

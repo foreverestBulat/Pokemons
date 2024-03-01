@@ -12,6 +12,17 @@ function Main() {
   const [pokemons, setPokemons] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+
+  // useEffect(() => {
+  //   const fetchData = async() => {
+  //     const res = await axios.get(url);
+  //     setPrevUrl(res.data.previous);
+  //     setNextUrl(res.data.next);
+  //     setPokemons(res.data.results);
+  //   };
+  //   fetchData();
+  // }, [])
+
   useEffect(() => {
       loadingData(url);
   }, [url]);

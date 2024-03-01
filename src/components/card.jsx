@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
+import PokeTypeDiv from "./UI/div/TypeDiv";
 
 const Card = (props) => {
 
     const navigate = useNavigate()
 
     const handleClick = () => {
-        console.log(123);
         navigate(`/pokemons/${props.pokemon.id}`);
     }
 
@@ -22,7 +22,7 @@ const Card = (props) => {
             <div class="down">
                 {Array.isArray(props.pokemon.types)
                     ? props.pokemon.types.map(item => 
-                        <div><p>{item.type.name}</p></div>
+                        <PokeTypeDiv name={item.type.name}/>
                     )
                     :<div>Abilities not found</div>
                 }
