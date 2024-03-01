@@ -1,26 +1,15 @@
 import React from 'react';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    const pageNumbers = [];
-
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-    }
-
+const Pagination = ({prevOnClick, nextOnClick}) => {
     return (
-        <div>
-            <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-                Previous
-            </button>
-            {pageNumbers.map(number => (
-                <button key={number} onClick={() => onPageChange(number)}>
-                    {number}
-                </button>
-            ))}
-            <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                Next
-            </button>
-        </div>
+        <div class="pagination">
+        <button class="prev" onClick={prevOnClick}>
+          PREVIOUS
+        </button>
+        <button class="next" onClick={nextOnClick}>
+          NEXT
+        </button>
+      </div>
     );
 };
 

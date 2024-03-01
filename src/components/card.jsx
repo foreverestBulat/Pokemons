@@ -1,9 +1,19 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 const Card = (props) => {
+
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        console.log(123);
+        navigate(`/pokemons/${props.pokemon.id}`);
+    }
+
+
     return (
-        <div class="card">
+        <div class="card" onClick={handleClick}>
             <div class="top">
                 <div class="name">{props.pokemon.name}</div>
                 <div class="number">#{props.pokemon.id}</div>
@@ -16,9 +26,6 @@ const Card = (props) => {
                     )
                     :<div>Abilities not found</div>
                 }
-
-                {/* <button>Grass</button>
-                <button>Poison</button> */}
             </div>
         </div>
     )

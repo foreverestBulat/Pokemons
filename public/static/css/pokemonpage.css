@@ -1,0 +1,9 @@
+.pokemon {
+    padding: 10px;
+}
+
+.pokemon .child {
+    background-color: antiquewhite;
+    width: 100px;
+    height: 100px;
+}

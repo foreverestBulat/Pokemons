@@ -22,6 +22,7 @@ function Main() {
     setNextUrl(res.data.next);
     if (Array.isArray(res.data.results)){
       let pokeDatas = []
+      // console.log(res.data.results);
       for (let i = 0; i < res.data.results.length; i++){
         let poke = await axios.get(res.data.results[i].url);
         pokeDatas.push(poke.data);
