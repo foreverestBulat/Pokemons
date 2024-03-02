@@ -10,74 +10,47 @@ function Main() {
   const [nextUrl, setNextUrl] = useState('');
   const [prevUrl, setPrevUrl] = useState('');
   const [pokemons, setPokemons] = useState([]);
+  const [obversedPokemons, setObversedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('');
-
-
-  // useEffect(() => {
-  //   const fetchData = async() => {
-  //     const res = await axios.get(url);
-  //     setPrevUrl(res.data.previous);
-  //     setNextUrl(res.data.next);
-  //     setPokemons(res.data.results);
-  //   };
-  //   fetchData();
-  // }, [])
+  const [currentPokemons, setCurrentPokemons] = useState(0);
 
   useEffect(() => {
-      loadingData(url);
-  }, [url]);
-
-  const loadingData = async(url) => {
-    const res = await axios.get(url);
-    setPrevUrl(res.data.previous);
-    setNextUrl(res.data.next);
-    if (Array.isArray(res.data.results)){
-      let pokeDatas = []
-      // console.log(res.data.results);
-      for (let i = 0; i < res.data.results.length; i++){
-        let poke = await axios.get(res.data.results[i].url);
-        pokeDatas.push(poke.data);
-      }
-      setPokemons(pokeDatas);
-    }
-  }
+    const fetchData = async() => {
+      const res = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1302");
+      setPrevUrl(res.data.previous);
+      setNextUrl(res.data.next);
+      setPokemons(res.data.results);
+      setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 30));
+    };
+    fetchData();
+  }, [])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1302")
-        const pokemonsAll = response.data.results;
-        if (Array.isArray(pokemonsAll)){
-          const filtered = pokemonsAll.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()))
-          let pokeDatas = [];
-          for (let i = 0; i < filtered.length; i++){
-            let poke = await axios.get(filtered[i].url);
-            pokeDatas.push(poke.data);
-          }
-          setPokemons(pokeDatas);
-        }
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
+    const fetchData = async() => {
+      const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1302")
+      const pokemonsAll = response.data.results;
+      if (Array.isArray(pokemonsAll)){
+        const filtered = pokemonsAll.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        setPokemons(filtered);
+        setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 30));
       }
     };
+    fetchData();
+  }, [searchQuery])
 
-    if (searchQuery) {
-      fetchData();
-    }
-  }, [searchQuery]);
-
-
-  const prevOnClick = async() => {
-    if (prevUrl){
-      setUrl(prevUrl);
-    }
+  const prevOnClick = () => {
+    console.log('prev');
+    setCurrentPokemons(currentPokemons - 30);
+    let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 30);
+    setObversedPokemons(pokemonsPrev);
   }
-
-  const nextOnClick = async() => {
-    if (nextUrl){
-      setUrl(nextUrl);
-    }
+  
+  const nextOnClick = () => {
+    console.log('next');
+    setCurrentPokemons(currentPokemons + 30);
+    let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 30);
+    setObversedPokemons(pokemonsNext);
+    // console.log(pokemonsNext);
   }
 
   return (
@@ -91,7 +64,7 @@ function Main() {
         onChange={e => setSearchQuery(e.target.value)}
       />
       <Cards
-        pokemons={pokemons}
+        pokemons={obversedPokemons}
       />
 
       <div class="pagination">

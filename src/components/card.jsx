@@ -5,29 +5,47 @@ import PokeTypeDiv from "./UI/div/TypeDiv";
 
 const Card = (props) => {
 
+    const [pokemon, setPokemon] = useState();
+
+    useEffect(() => {
+        const fetchData = async() => {
+            let res = await axios.get(props.pokemon.url);
+            setPokemon(res.data);
+        };
+        fetchData();
+    }, [pokemon,])
+
     const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate(`/pokemons/${props.pokemon.id}`);
+        navigate(`/pokemons/${pokemon.id}`);
     }
 
 
     return (
-        <div class="card" onClick={handleClick}>
-            <div class="top">
-                <div class="name">{props.pokemon.name}</div>
-                <div class="number">#{props.pokemon.id}</div>
+        <>
+            {pokemon ? 
+            <div>
+                <div class="card" onClick={handleClick}>
+                    <div class="top">
+                        <div class="name">{pokemon.name}</div>
+                        <div class="number">#{pokemon.id}</div>
+                    </div>
+                    <img src={pokemon.sprites.front_default}/>
+                    <div class="down">
+                        {Array.isArray(pokemon.types)
+                            ? pokemon.types.map(item => 
+                                <PokeTypeDiv name={item.type.name}/>
+                            )
+                            :<div>Abilities not found</div>
+                        }
+                    </div>
+                </div>
             </div>
-            <img src={props.pokemon.sprites.front_default}/>
-            <div class="down">
-                {Array.isArray(props.pokemon.types)
-                    ? props.pokemon.types.map(item => 
-                        <PokeTypeDiv name={item.type.name}/>
-                    )
-                    :<div>Abilities not found</div>
-                }
-            </div>
-        </div>
+            :
+            <div>
+            </div>}
+        </>
     )
 }
 
