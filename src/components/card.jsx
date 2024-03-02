@@ -13,7 +13,7 @@ const Card = (props) => {
             setPokemon(res.data);
         };
         fetchData();
-    }, [pokemon,])
+    }, [pokemon])
 
     const navigate = useNavigate()
 
