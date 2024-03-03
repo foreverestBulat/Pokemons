@@ -6,7 +6,7 @@ const Moves = ({moves}) => {
     return (
         <div class="Moves child">
             <h1>Moves</h1>
-            <div>
+            <div class="list-moves">
                 {moves.map(item => {
                     return <Move move={item.move}/>
                 })}

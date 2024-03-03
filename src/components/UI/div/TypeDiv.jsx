@@ -37,7 +37,7 @@ const PokeTypeDiv = ({name, ...props}) => {
             setBackgroundColor(types[name][0])
             setTextColor(types[name][1])
         }
-    },[])
+    },[name])
     
     return (
         <div style={{backgroundColor: backgroundColor, color: textColor}} {...props}>

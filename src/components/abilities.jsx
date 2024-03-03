@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Loading from './loading';
 
 const Abilities = ({abilities}) => {
 
@@ -43,14 +44,14 @@ const Abilities = ({abilities}) => {
             <h1>Abilities</h1>
             <div>
                 {abilities ?
-                <div>
+                <div class="list-abilities">
                     {abilities.map(item => 
-                        <div style={{backgroundColor: "#C0C0C0"}}>
+                        <div class="ability" style={{backgroundColor: "#C0C0C0"}}>
                             {item.ability.name}
                         </div>)}
                 </div>:
-                <div>
-                </div>}
+                <Loading/>
+                }
             </div>
         </div>
     );

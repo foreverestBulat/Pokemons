@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import PokeTypeDiv from "./UI/div/TypeDiv";
+import Loading from "./loading";
 
 const Card = (props) => {
 
@@ -13,7 +14,7 @@ const Card = (props) => {
             setPokemon(res.data);
         };
         fetchData();
-    }, [pokemon])
+    }, [props.pokemon.url])
 
     const navigate = useNavigate()
 
@@ -44,6 +45,7 @@ const Card = (props) => {
             </div>
             :
             <div>
+                <Loading/>
             </div>}
         </>
     )

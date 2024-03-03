@@ -1,30 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
+.page-pokemon {
+    display: flex;
+    justify-content: center;
+}
+
 .pokemon {
     font-family: "Quicksand", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* padding: 50px; */
+    width: 700px;
     margin: 50px;
 }
 
 .child {
     background-color: rgb(255, 255, 255);
     margin: 15px;
-    padding: 10px;
+    padding: 40px;
     border-radius: 30px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.name-id-type {
+.name-id-types {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.name-id-type div {
-    width: 200px;
+.name-id-types :last-child {
+    align-items: center;    
+    display: flex;
+    justify-content: center;
 }
 
 .name-id {
@@ -38,8 +45,89 @@
     font-size: 50px;
 }
 
+.types {
+    display: flex;
+    flex-direction: row;
+}
+
+.types div {
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: 15px;
+    align-items: center;
+}
+
 .id {
     color: gray;
     font-size: 25px;
 }
 
+.stats-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.image {
+    margin-right: 20px;
+}
+
+.breeding h1 {
+    margin-top: 0;
+}
+
+.breeding .values {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.value {
+    width: 140px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(194, 194, 194);
+}
+
+.container-move {
+    padding: 5px;
+}
+
+.container-move .move {
+    width: 170px;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.list-moves {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.list-abilities {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ability {
+    width: 240px;
+    height: 130px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 5px;
+}

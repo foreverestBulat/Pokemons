@@ -20,7 +20,7 @@ function Main() {
       setPrevUrl(res.data.previous);
       setNextUrl(res.data.next);
       setPokemons(res.data.results);
-      setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 30));
+      setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 100));
     };
     fetchData();
   }, [])
@@ -32,7 +32,7 @@ function Main() {
       if (Array.isArray(pokemonsAll)){
         const filtered = pokemonsAll.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()))
         setPokemons(filtered);
-        setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 30));
+        setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 100));
       }
     };
     fetchData();
@@ -40,23 +40,23 @@ function Main() {
 
   const prevOnClick = () => {
     console.log('prev');
-    setCurrentPokemons(currentPokemons - 30);
-    let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 30);
+    setCurrentPokemons(currentPokemons - 100);
+    let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 100);
     setObversedPokemons(pokemonsPrev);
   }
   
   const nextOnClick = () => {
     console.log('next');
-    setCurrentPokemons(currentPokemons + 30);
-    let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 30);
+    setCurrentPokemons(currentPokemons + 100);
+    let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 100);
     setObversedPokemons(pokemonsNext);
     // console.log(pokemonsNext);
   }
 
   return (
     <div className="App">
-      <link rel="stylesheet" href="static/css/cards.css"/>
-      <link rel="stylesheet" href="static/css/card.css"/>
+      {/* <link rel="stylesheet" href="static/css/cards.css"/>
+      <link rel="stylesheet" href="static/css/card.css"/> */}
 
       <SearchEngine
         value={searchQuery}
