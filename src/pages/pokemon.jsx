@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios"
-import Stats from "../components/stats";
-import Breeding from "../components/Breeding";
-import Moves from "../components/moves";
-import Abilities from "../components/abilities";
 import Poke from "../components/poke";
-// import * from ".../public/static/css/pokemonpage.css";
+import {useNavigate} from 'react-router-dom';
 
 const Pokemon = () => {
+
+    const navigate = useNavigate()
+    const backOnClick = () => {
+        navigate('/pokemons');
+    }
+
     return (
         <div>
             <link rel="stylesheet" href="static/css/pokemonpage.css"/>
+            <div class="nav back">
+                <div class="btn-back" onClick={backOnClick}>
+                    back
+                </div>
+            </div>
             <Poke/>
         </div>
     )

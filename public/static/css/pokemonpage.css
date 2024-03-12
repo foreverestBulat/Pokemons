@@ -131,3 +131,13 @@
     border-radius: 10px;
     margin: 5px;
 }
+
+.back {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    background-color: blue;
+    color: white;
+    font-family: "Quicksand", sans-serif;
+    font-size: 20px;
+}

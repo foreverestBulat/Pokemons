@@ -1,9 +1,7 @@
-import React, {useMemo, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import SearchEngine from './search_engine';
 import Cards from './cards'
 import axios from "axios"
-import MyInput from './UI/input/MyInput'
-import Card from './card'
 
 function Main() {
   const [url, setUrl]= useState("https://pokeapi.co/api/v2/pokemon?offset=0&limit=30");
@@ -13,6 +11,8 @@ function Main() {
   const [obversedPokemons, setObversedPokemons] = useState([])
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPokemons, setCurrentPokemons] = useState(0);
+  const [fetching, setFetching] = useState(false)
+  const [height, setHeight] = useState(0)
 
   useEffect(() => {
     const fetchData = async() => {
@@ -20,10 +20,12 @@ function Main() {
       setPrevUrl(res.data.previous);
       setNextUrl(res.data.next);
       setPokemons(res.data.results);
-      setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 100));
+      setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 30));
+      setCurrentPokemons(currentPokemons + 30);
     };
     fetchData();
   }, [])
+
 
   useEffect(() => {
     const fetchData = async() => {
@@ -32,32 +34,53 @@ function Main() {
       if (Array.isArray(pokemonsAll)){
         const filtered = pokemonsAll.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()))
         setPokemons(filtered);
-        setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 100));
+        setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 30));
       }
     };
     fetchData();
   }, [searchQuery])
 
-  const prevOnClick = () => {
-    console.log('prev');
-    setCurrentPokemons(currentPokemons - 100);
-    let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 100);
-    setObversedPokemons(pokemonsPrev);
-  }
+
+  // const prevOnClick = () => {
+  //   console.log('prev');
+  //   setCurrentPokemons(currentPokemons - 30);
+  //   let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 30);
+  //   setObversedPokemons(pokemonsPrev);
+  // }
   
-  const nextOnClick = () => {
-    console.log('next');
-    setCurrentPokemons(currentPokemons + 100);
-    let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 100);
-    setObversedPokemons(pokemonsNext);
-    // console.log(pokemonsNext);
+  // const nextOnClick = () => {
+  //   console.log('next');
+  //   setCurrentPokemons(currentPokemons + 30);
+  //   let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 30);
+  //   setObversedPokemons(pokemonsNext);
+  // }
+
+
+  useEffect(() => {
+    if (fetching){
+      console.log('fetching');
+      setCurrentPokemons(currentPokemons + 30);
+      setObversedPokemons([...obversedPokemons, ...pokemons.slice(currentPokemons, currentPokemons + 30)]);
+      setFetching(false);
+    }
+  }, [fetching])
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler)
+    return function() {
+      document.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
+
+  const scrollHandler = (e) => {
+    if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100){
+      setFetching(true)
+    }
   }
+
 
   return (
     <div className="App">
-      {/* <link rel="stylesheet" href="static/css/cards.css"/>
-      <link rel="stylesheet" href="static/css/card.css"/> */}
-
       <SearchEngine
         value={searchQuery}
         placeholder="Pokemon search..."
@@ -67,14 +90,14 @@ function Main() {
         pokemons={obversedPokemons}
       />
 
-      <div class="pagination">
+      {/* <div class="pagination">
         <button class="prev" onClick={prevOnClick}>
           PREVIOUS
         </button>
         <button class="next" onClick={nextOnClick}>
           NEXT
         </button>
-      </div>
+      </div> */}
 
     </div>
   );
