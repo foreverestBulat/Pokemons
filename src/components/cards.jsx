@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Card from './card'
 import axios from "axios"
+import '../css/cards.css'
+import '../css/card.css'
 
 const Cards = (props) => {
     return (

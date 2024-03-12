@@ -12,7 +12,6 @@ function Main() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPokemons, setCurrentPokemons] = useState(0);
   const [fetching, setFetching] = useState(false)
-  const [height, setHeight] = useState(0)
 
   useEffect(() => {
     const fetchData = async() => {
@@ -39,21 +38,6 @@ function Main() {
     };
     fetchData();
   }, [searchQuery])
-
-
-  // const prevOnClick = () => {
-  //   console.log('prev');
-  //   setCurrentPokemons(currentPokemons - 30);
-  //   let pokemonsPrev = pokemons.slice(currentPokemons, currentPokemons + 30);
-  //   setObversedPokemons(pokemonsPrev);
-  // }
-  
-  // const nextOnClick = () => {
-  //   console.log('next');
-  //   setCurrentPokemons(currentPokemons + 30);
-  //   let pokemonsNext = pokemons.slice(currentPokemons, currentPokemons + 30);
-  //   setObversedPokemons(pokemonsNext);
-  // }
 
 
   useEffect(() => {
@@ -89,15 +73,6 @@ function Main() {
       <Cards
         pokemons={obversedPokemons}
       />
-
-      {/* <div class="pagination">
-        <button class="prev" onClick={prevOnClick}>
-          PREVIOUS
-        </button>
-        <button class="next" onClick={nextOnClick}>
-          NEXT
-        </button>
-      </div> */}
 
     </div>
   );

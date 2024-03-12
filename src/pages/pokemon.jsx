@@ -1,5 +1,6 @@
 import Poke from "../components/poke";
 import {useNavigate} from 'react-router-dom';
+import '../css/pokemonpage.css'
 
 const Pokemon = () => {
 

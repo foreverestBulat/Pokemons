@@ -1,9 +1,9 @@
 import MyInput from './UI/input/MyInput'
+import '../css/search.css'
 
 const SearchEngine = (props) => {
     return (
         <div class="search">
-            <link rel="stylesheet" href="static/css/search.css"/>
             <div class="horizontal">
                 <div class="vertical">
                     <div class="block-text">
