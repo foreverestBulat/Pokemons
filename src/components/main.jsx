@@ -20,7 +20,6 @@ function Main() {
       setNextUrl(res.data.next);
       setPokemons(res.data.results);
       setObversedPokemons(res.data.results.slice(currentPokemons, currentPokemons + 30));
-      setCurrentPokemons(currentPokemons + 30);
     };
     fetchData();
   }, [])
@@ -35,6 +34,7 @@ function Main() {
         setPokemons(filtered);
         setObversedPokemons(filtered.slice(currentPokemons, currentPokemons + 30));
       }
+      console.log(currentPokemons);
     };
     fetchData();
   }, [searchQuery])
